@@ -1,4 +1,7 @@
 language: csharp
+mono:
+  - latest
+  - 3.12.0
 solution: CatalogMaster.sln
 install:
   - nuget restore CatalogMaster.sln
