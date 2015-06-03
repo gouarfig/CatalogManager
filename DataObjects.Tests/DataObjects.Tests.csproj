@@ -89,6 +89,7 @@
     <Compile Include="AdoNet\ConfigurationDaoTests.cs" />
     <Compile Include="AdoNet\DbTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VolumeDaoTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

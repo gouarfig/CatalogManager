@@ -7,11 +7,11 @@ namespace BusinessObjects
 {
 	public enum VolumeType
 	{
-		Unknown,
-		FixedDrive,
-		RemovableDrive,
-		NetworkDrive,
-		FloppyDisk,
-		CdRom,
+		Unknown = 0,
+		FixedDrive = 1,
+		RemovableDrive = 2,
+		NetworkDrive = 3,
+		FloppyDisk = 4,
+		CdRom = 5,
 	}
 }

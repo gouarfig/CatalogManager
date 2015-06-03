@@ -12,7 +12,6 @@ namespace BusinessObjects
 		public Guid Guid { get; set; }
 		public string Name { get; set; }
 		public VolumeType Type { get; set; }
-		public List<Category> Categories { get; set; }
 
 		public string VolumeId { get; set; }
 		public DateTime Created { get; set; }
@@ -26,6 +25,7 @@ namespace BusinessObjects
 
 		public bool IncludeInSearch { get; set; }
 
+		public List<Category> Categories { get; set; }
 		public List<FileCatalog> Files { get; set; }
 	}
 }
