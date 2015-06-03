@@ -12,7 +12,12 @@
 
 		public ICategoryDao CategoryDao
 		{
-			get { return new AdoNet.CategoryDao(); }
+			get { return new CategoryDao(); }
+		}
+
+		public IVolumeDao VolumeDao
+		{
+			get { throw new System.NotImplementedException(); }
 		}
 	}
 }

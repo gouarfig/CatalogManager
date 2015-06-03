@@ -20,5 +20,10 @@ namespace DataObjects.AdoNet
 		{
 			get { return new CategoryDao(new Db()); }
 		}
+
+		public IVolumeDao VolumeDao
+		{
+			get { return new VolumeDao(new Db()); }
+		}
 	}
 }

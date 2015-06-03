@@ -13,5 +13,6 @@ namespace DataObjects
 	{
 		IConfigurationDao ConfigurationDao { get; }
 		ICategoryDao CategoryDao { get; }
+		IVolumeDao VolumeDao { get; }
 	}
 }

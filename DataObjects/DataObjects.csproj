@@ -90,6 +90,7 @@
     <Compile Include="AdoNet\Db.cs" />
     <Compile Include="AdoNet\Extensions.cs" />
     <Compile Include="AdoNet\IDb.cs" />
+    <Compile Include="AdoNet\VolumeDao.cs" />
     <Compile Include="DaoFactories.cs" />
     <Compile Include="EntityFramework\CategoryDao.cs" />
     <Compile Include="EntityFramework\DaoFactory.cs" />
