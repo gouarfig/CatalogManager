@@ -12,6 +12,7 @@ using NUnit.Framework.Constraints;
 namespace DataObjects.Tests
 {
 	[TestFixture]
+	[Category("sqlite")]
     public class DbTests
 	{
 		private static readonly string _testsDbFileName = "CatalogMasterTests.sqlite";
