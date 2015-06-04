@@ -17,23 +17,23 @@ namespace DataObjects.Tests.AdoNet
 		[Test]
 		public void InstanciateWithoutDb()
 		{
-			var configuration = new CategoryDao();
-			Assert.IsNotNull(configuration);
+			var category = new CategoryDao();
+			Assert.IsNotNull(category);
 		}
 
 		[Test]
 		public void InstanciateWithDb()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			Assert.IsNotNull(configuration);
+			var category = new CategoryDao(db.Object);
+			Assert.IsNotNull(category);
 		}
 
 		[Test]
 		public void MakeAndTakeCategoryBack()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var category = new CategoryDao(db.Object);
 
 			var guid = Guid.NewGuid();
 			DateTime created = DateTime.Today;
@@ -45,7 +45,7 @@ namespace DataObjects.Tests.AdoNet
 			reader.Setup(r => r["Created"]).Returns(created);
 			reader.Setup(r => r["IncludeInSearch"]).Returns(true);
 	
-			var take = configuration.TestMakeTake(reader.Object);
+			var take = category.TestMakeTake(reader.Object);
 			Assert.AreEqual(new object[]{
 				"@Id", 123,
 				"@Guid", guid,
@@ -59,8 +59,8 @@ namespace DataObjects.Tests.AdoNet
 		public void CreateStructure()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.CreateStructure();
+			var category = new CategoryDao(db.Object);
+			category.CreateStructure();
 			db.Verify(a => a.CreateStructure(It.IsNotNull<string>()));
 		}
 
@@ -68,8 +68,8 @@ namespace DataObjects.Tests.AdoNet
 		public void GetCategories()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.GetCategories();
+			var category = new CategoryDao(db.Object);
+			category.GetCategories();
 			db.Verify(
 				a => a.Read(
 					"SELECT Id, Guid, Name, Created, IncludeInSearch FROM Category",
@@ -84,8 +84,8 @@ namespace DataObjects.Tests.AdoNet
 		public void GetCategoryByZeroId()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.GetCategoryById(0);
+			var category = new CategoryDao(db.Object);
+			category.GetCategoryById(0);
 		}
 
 		[Test]
@@ -93,16 +93,16 @@ namespace DataObjects.Tests.AdoNet
 		public void GetCategoryByNegativeId()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.GetCategoryById(-10);
+			var category = new CategoryDao(db.Object);
+			category.GetCategoryById(-10);
 		}
 
 		[Test]
 		public void GetCategoryById()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.GetCategoryById(123);
+			var category = new CategoryDao(db.Object);
+			category.GetCategoryById(123);
 			db.Verify(
 				a => a.Read(
 					"SELECT Id, Guid, Name, Created, IncludeInSearch FROM Category WHERE Id = @Id",
@@ -117,18 +117,18 @@ namespace DataObjects.Tests.AdoNet
 		public void GetCategoryByEmptyGuid()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var category = new CategoryDao(db.Object);
 			var guid = Guid.NewGuid();
-			configuration.GetCategoryByGuid(Guid.Empty);
+			category.GetCategoryByGuid(Guid.Empty);
 		}
 
 		[Test]
 		public void GetCategoryByGuid()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var category = new CategoryDao(db.Object);
 			var guid = Guid.NewGuid();
-			configuration.GetCategoryByGuid(guid);
+			category.GetCategoryByGuid(guid);
 			db.Verify(
 				a => a.Read(
 					"SELECT Id, Guid, Name, Created, IncludeInSearch FROM Category WHERE Guid = @Guid",
@@ -143,8 +143,8 @@ namespace DataObjects.Tests.AdoNet
 		public void GetCategoryByNullName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.GetCategoryByName(null);
+			var category = new CategoryDao(db.Object);
+			category.GetCategoryByName(null);
 		}
 
 		[Test]
@@ -152,8 +152,8 @@ namespace DataObjects.Tests.AdoNet
 		public void GetCategoryByEmptyName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.GetCategoryByName("");
+			var category = new CategoryDao(db.Object);
+			category.GetCategoryByName("");
 		}
 
 		[Test]
@@ -161,17 +161,17 @@ namespace DataObjects.Tests.AdoNet
 		public void GetCategoryByInvalidName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var category = new CategoryDao(db.Object);
 			var name = new string('a', 500);
-			configuration.GetCategoryByName(name);
+			category.GetCategoryByName(name);
 		}
 
 		[Test]
 		public void GetCategoryByName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.GetCategoryByName("MyName");
+			var category = new CategoryDao(db.Object);
+			category.GetCategoryByName("MyName");
 			db.Verify(
 				a => a.Read(
 					"SELECT Id, Guid, Name, Created, IncludeInSearch FROM Category WHERE Name = @Name",
@@ -187,7 +187,7 @@ namespace DataObjects.Tests.AdoNet
 		public void InsertCategoryWithInvalidName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var name = new string('a', 500);
 			var category = new Category()
 			{
@@ -196,7 +196,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.InsertCategory(category);
+			categoryDao.InsertCategory(category);
 		}
 
 		[Test]
@@ -204,7 +204,7 @@ namespace DataObjects.Tests.AdoNet
 		public void InsertCategoryWithEmptyName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Guid = Guid.NewGuid(),
@@ -212,7 +212,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.InsertCategory(category);
+			categoryDao.InsertCategory(category);
 		}
 
 		[Test]
@@ -220,7 +220,7 @@ namespace DataObjects.Tests.AdoNet
 		public void InsertCategoryWithNullName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Guid = Guid.NewGuid(),
@@ -228,7 +228,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.InsertCategory(category);
+			categoryDao.InsertCategory(category);
 		}
 
 		[Test]
@@ -236,7 +236,7 @@ namespace DataObjects.Tests.AdoNet
 		public void InsertCategoryWithInvalidGuid()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Guid = Guid.Empty,
@@ -244,7 +244,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.InsertCategory(category);
+			categoryDao.InsertCategory(category);
 		}
 
 		[Test]
@@ -258,7 +258,7 @@ namespace DataObjects.Tests.AdoNet
 					)
 				).Returns(1);
 
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Guid = Guid.NewGuid(),
@@ -266,7 +266,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			var inserted = configuration.InsertCategory(category);
+			var inserted = categoryDao.InsertCategory(category);
 			Assert.IsTrue(inserted);
 		}
 
@@ -281,7 +281,7 @@ namespace DataObjects.Tests.AdoNet
 					)
 				).Returns(0);
 
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Guid = Guid.NewGuid(),
@@ -289,7 +289,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			var inserted = configuration.InsertCategory(category);
+			var inserted = categoryDao.InsertCategory(category);
 			Assert.IsFalse(inserted);
 		}
 
@@ -298,7 +298,7 @@ namespace DataObjects.Tests.AdoNet
 		public void UpdateCategoryWithInvalidName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var name = new string('a', 500);
 			var category = new Category()
 			{
@@ -308,7 +308,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.UpdateCategory(category);
+			categoryDao.UpdateCategory(category);
 		}
 
 		[Test]
@@ -316,7 +316,7 @@ namespace DataObjects.Tests.AdoNet
 		public void UpdateCategoryWithEmptyName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Id = 10,
@@ -325,7 +325,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.UpdateCategory(category);
+			categoryDao.UpdateCategory(category);
 		}
 
 		[Test]
@@ -333,7 +333,7 @@ namespace DataObjects.Tests.AdoNet
 		public void UpdateCategoryWithNullName()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Id = 10,
@@ -342,7 +342,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.UpdateCategory(category);
+			categoryDao.UpdateCategory(category);
 		}
 
 		[Test]
@@ -350,7 +350,7 @@ namespace DataObjects.Tests.AdoNet
 		public void UpdateCategoryWithInvalidGuid()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Id = 10,
@@ -359,7 +359,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.UpdateCategory(category);
+			categoryDao.UpdateCategory(category);
 		}
 
 		[Test]
@@ -367,7 +367,7 @@ namespace DataObjects.Tests.AdoNet
 		public void UpdateCategoryWithNegativeId()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Id = -10,
@@ -376,7 +376,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.UpdateCategory(category);
+			categoryDao.UpdateCategory(category);
 		}
 
 		[Test]
@@ -384,7 +384,7 @@ namespace DataObjects.Tests.AdoNet
 		public void UpdateCategoryWithZeroId()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Id = 0,
@@ -393,7 +393,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			configuration.UpdateCategory(category);
+			categoryDao.UpdateCategory(category);
 		}
 
 		[Test]
@@ -407,7 +407,7 @@ namespace DataObjects.Tests.AdoNet
 					)
 				).Returns(1);
 
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Id = 10,
@@ -416,7 +416,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			var updated = configuration.UpdateCategory(category);
+			var updated = categoryDao.UpdateCategory(category);
 			Assert.IsTrue(updated);
 		}
 
@@ -431,7 +431,7 @@ namespace DataObjects.Tests.AdoNet
 					)
 				).Returns(0);
 
-			var configuration = new CategoryDao(db.Object);
+			var categoryDao = new CategoryDao(db.Object);
 			var category = new Category()
 			{
 				Id = 10,
@@ -440,7 +440,7 @@ namespace DataObjects.Tests.AdoNet
 				IncludeInSearch = true,
 				Created = DateTime.Now,
 			};
-			var updated = configuration.UpdateCategory(category);
+			var updated = categoryDao.UpdateCategory(category);
 			Assert.IsFalse(updated);
 		}
 
@@ -450,8 +450,8 @@ namespace DataObjects.Tests.AdoNet
 		public void DeleteCategoryWithNegativeId()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.DeleteCategory(-10);
+			var category = new CategoryDao(db.Object);
+			category.DeleteCategory(-10);
 		}
 
 		[Test]
@@ -459,8 +459,8 @@ namespace DataObjects.Tests.AdoNet
 		public void DeleteCategoryWithZeroId()
 		{
 			var db = new Mock<IDb>();
-			var configuration = new CategoryDao(db.Object);
-			configuration.DeleteCategory(0);
+			var category = new CategoryDao(db.Object);
+			category.DeleteCategory(0);
 		}
 
 		[Test]
@@ -474,8 +474,8 @@ namespace DataObjects.Tests.AdoNet
 					)
 				).Returns(1);
 
-			var configuration = new CategoryDao(db.Object);
-			var deleted = configuration.DeleteCategory(10);
+			var category = new CategoryDao(db.Object);
+			var deleted = category.DeleteCategory(10);
 			Assert.IsTrue(deleted);
 		}
 	}
