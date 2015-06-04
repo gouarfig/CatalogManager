@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace DataObjects.Tests.AdoNet
 {
 	[TestFixture]
+	[Category("travisci")]
 	public class VolumeDaoTests
 	{
 		private const string _selectString =

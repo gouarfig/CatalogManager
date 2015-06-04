@@ -12,6 +12,7 @@ using NUnit.Framework;
 namespace DataObjects.Tests.AdoNet
 {
 	[TestFixture]
+	[Category("travisci")]
 	public class CategoryDaoTests
 	{
 		[Test]
