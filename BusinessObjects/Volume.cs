@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessObjects.BusinessRules;
 
 namespace BusinessObjects
 {
-	public class Volume
+	public class Volume : BusinessObject
 	{
 		public int Id { get; set; }
 		public Guid Guid { get; set; }
@@ -27,5 +28,10 @@ namespace BusinessObjects
 
 		public List<Category> Categories { get; set; }
 		public List<FileCatalog> Files { get; set; }
+
+		public Volume()
+		{
+			AddRule(new ValidateId("Id"));
+		}
 	}
 }
