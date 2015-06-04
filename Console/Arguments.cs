@@ -25,20 +25,45 @@ namespace Console
 			return argument;
 		}
 
+		public void DisplayHelp()
+		{
+			System.Console.WriteLine("Catalog Master [options]");
+			System.Console.WriteLine("Options:");
+			foreach (var argument in _arguments)
+			{
+				System.Console.WriteLine("  /{0} (/{1}): {2}", argument.ShortArgument, argument.LongArgument, argument.Help);
+			}
+		}
+
 		public bool RunFromArguments(string[] args)
 		{
 			var result = false;
-			for (int i = 0; i < args.Length; i++)
+			if (args.Length > 0)
 			{
-				if (args[i].StartsWith("/") || args[i].StartsWith("-"))
+				for (int i = 0; i < args.Length; i++)
 				{
-					var arg = args[i].Substring(1);
-					var argument = GetArgument(arg);
-					if (argument != null)
+					if (args[i].StartsWith("/") || args[i].StartsWith("-"))
 					{
-						result = argument.RunArgumentDelegate(null);
+						var arg = args[i].Substring(1);
+						var argument = GetArgument(arg);
+						if (argument != null)
+						{
+							result = argument.RunArgumentDelegate(null);
+						}
+						else
+						{
+							DisplayHelp();
+						}
+					}
+					else
+					{
+						DisplayHelp();
 					}
 				}
+			}
+			else
+			{
+				DisplayHelp();
 			}
 			return result;
 		}
