@@ -16,14 +16,14 @@ namespace DataObjects.Tests.AdoNet
 	public class ConfigurationDaoTests
 	{
 		[Test]
-		public void InstanciateWithoutDb()
+		public void InstantiateWithoutDb()
 		{
 			var configuration = new ConfigurationDao();
 			Assert.IsNotNull(configuration);
 		}
 
 		[Test]
-		public void InstanciateWithDb()
+		public void InstantiateWithDb()
 		{
 			var db = new Mock<IDb>();
 			var configuration = new ConfigurationDao(db.Object);

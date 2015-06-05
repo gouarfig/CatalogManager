@@ -18,14 +18,14 @@ namespace DataObjects.Tests.AdoNet
 			"VALUES (@Guid, @Name, @VolumeType, @VolumeId, @Created, @Cataloged, @TotalSize, @SpaceFree, @RegularFiles, @HiddenFiles, @Path, @ComputerName, @IncludeInSearch)";
 
 		[Test]
-		public void InstanciateWithoutDb()
+		public void InstantiateWithoutDb()
 		{
 			var configuration = new VolumeDao();
 			Assert.IsNotNull(configuration);
 		}
 
 		[Test]
-		public void InstanciateWithDb()
+		public void InstantiateWithDb()
 		{
 			var db = new Mock<IDb>();
 			var configuration = new VolumeDao(db.Object);

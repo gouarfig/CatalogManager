@@ -94,6 +94,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLineArguments.cs" />
+    <Compile Include="CommandLineArgument.cs" />
     <Compile Include="CommandLineOption.cs" />
     <Compile Include="CommandLineOptions.cs" />
     <Compile Include="Environment.cs" />

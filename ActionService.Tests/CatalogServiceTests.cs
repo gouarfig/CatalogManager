@@ -13,7 +13,7 @@ namespace ActionService.Tests
 	public class CatalogServiceTests
     {
 		[Test]
-		public void Instanciate()
+		public void Instantiate()
 		{
 			ICatalogService service = new CatalogService("inmemory");
 			Assert.IsNotNull(service);

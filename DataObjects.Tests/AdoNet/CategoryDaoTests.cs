@@ -16,14 +16,14 @@ namespace DataObjects.Tests.AdoNet
 	public class CategoryDaoTests
 	{
 		[Test]
-		public void InstanciateWithoutDb()
+		public void InstantiateWithoutDb()
 		{
 			var category = new CategoryDao();
 			Assert.IsNotNull(category);
 		}
 
 		[Test]
-		public void InstanciateWithDb()
+		public void InstantiateWithDb()
 		{
 			var db = new Mock<IDb>();
 			var category = new CategoryDao(db.Object);

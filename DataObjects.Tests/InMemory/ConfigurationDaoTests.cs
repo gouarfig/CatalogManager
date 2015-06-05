@@ -15,7 +15,7 @@ namespace DataObjects.Tests.InMemory
 	public class ConfigurationDaoTests
 	{
 		[Test]
-		public void Instanciate()
+		public void Instantiate()
 		{
 			var configuration = new ConfigurationDao();
 			Assert.IsNotNull(configuration);
