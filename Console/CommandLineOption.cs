@@ -8,18 +8,18 @@ namespace Console
 {
 	public delegate bool ArgumentDelegate(IEnumerable<string> parameters);
 
-	public sealed class Argument
+	public sealed class CommandLineOption
 	{
 		public string Help { get; private set; }
-		public string ShortArgument { get; private set; }
-		public string LongArgument { get; private set; }
+		public string ShortOption { get; private set; }
+		public string LongOption { get; private set; }
 		public ArgumentDelegate RunArgumentDelegate { get; private set; }
 
-		public Argument(string help, string shortArgument, string longArgument, ArgumentDelegate code)
+		public CommandLineOption(string help, string shortOption, string longOption, ArgumentDelegate code)
 		{
 			Help = help;
-			ShortArgument = shortArgument;
-			LongArgument = longArgument;
+			ShortOption = shortOption;
+			LongOption = longOption;
 			RunArgumentDelegate = code;
 		}
 	}

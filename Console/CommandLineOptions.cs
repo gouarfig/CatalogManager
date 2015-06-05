@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace Console
 {
-	public sealed class Arguments
+	public sealed class CommandLineOptions
 	{
-		private List<Argument> _arguments; 
+		private List<CommandLineOption> _commandLineOptions; 
 
-		public Arguments()
+		public CommandLineOptions()
 		{
-			_arguments = new List<Argument>
+			_commandLineOptions = new List<CommandLineOption>
 			{
-				new Argument("Shows the build and version information", "v", "Version",
+				new CommandLineOption("Shows the build and version information", "v", "Version",
 					new ArgumentDelegate(new Environment().AssemblyVersion)),
 
-				new Argument("Builds a blank database (does not delete an already existing one)", "b", "BuildDatabase",
+				new CommandLineOption("Builds a blank database (does not delete an already existing one)", "b", "BuildDatabase",
 					new ArgumentDelegate(new Environment().BuildDatabase)),
 
-				new Argument("Displays available drives list", "d", "Drives",
+				new CommandLineOption("Displays available drives list", "d", "Drives",
 					new ArgumentDelegate(new Environment().DisplayDriveList)),
 			};
 		}
 
-		public Argument GetArgument(string arg)
+		public CommandLineOption GetArgument(string arg)
 		{
 			arg = arg.ToLower();
-			var argument = _arguments.Find(a => a.ShortArgument.ToLower() == arg || a.LongArgument.ToLower() == arg);
+			var argument = _commandLineOptions.Find(a => a.ShortOption.ToLower() == arg || a.LongOption.ToLower() == arg);
 			return argument;
 		}
 
@@ -36,9 +36,9 @@ namespace Console
 		{
 			System.Console.WriteLine("Catalog Master [options]");
 			System.Console.WriteLine("Options:");
-			foreach (var argument in _arguments)
+			foreach (var argument in _commandLineOptions)
 			{
-				System.Console.WriteLine("  /{0} (/{1}): {2}", argument.ShortArgument, argument.LongArgument, argument.Help);
+				System.Console.WriteLine("  /{0} (/{1}): {2}", argument.ShortOption, argument.LongOption, argument.Help);
 			}
 		}
 
