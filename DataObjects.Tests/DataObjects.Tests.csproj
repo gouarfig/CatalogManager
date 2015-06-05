@@ -95,7 +95,10 @@
     <Compile Include="AdoNet\VolumeDaoTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.Mono.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

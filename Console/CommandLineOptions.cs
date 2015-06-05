@@ -14,13 +14,16 @@ namespace Console
 		{
 			_commandLineOptions = new List<CommandLineOption>
 			{
-				new CommandLineOption("Shows the build and version information", "v", "Version",
+				new CommandLineOption("Shows the build and version information", "v", "Version", "",
 					new ArgumentDelegate(new Environment().AssemblyVersion)),
 
-				new CommandLineOption("Builds a blank database (does not delete an already existing one)", "b", "BuildDatabase",
+				new CommandLineOption("Builds a blank database (does not delete an already existing one)", "b", "BuildDatabase", "",
 					new ArgumentDelegate(new Environment().BuildDatabase)),
 
-				new CommandLineOption("Displays available drives list", "d", "Drives",
+				new CommandLineOption("Displays available drives list", "a", "Drives", "",
+					new ArgumentDelegate(new Environment().DisplayDriveList)),
+
+				new CommandLineOption("Displays information about selected drive", "d", "Drive", "<drive>",
 					new ArgumentDelegate(new Environment().DisplayDriveList)),
 			};
 		}
@@ -38,7 +41,7 @@ namespace Console
 			System.Console.WriteLine("Options:");
 			foreach (var argument in _commandLineOptions)
 			{
-				System.Console.WriteLine("  /{0} (/{1}): {2}", argument.ShortOption, argument.LongOption, argument.Help);
+				System.Console.WriteLine("  /{0} or /{1} {2}: {3}", argument.ShortOption, argument.LongOption, argument.Parameters, argument.Help);
 			}
 		}
 

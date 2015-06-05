@@ -10,6 +10,14 @@ namespace Console
 	{
 		private List<CommandLineArgument> _arguments;
 
+		public List<CommandLineArgument> Arguments
+		{
+			get
+			{
+				return _arguments;
+			}
+		}
+
 		public CommandLineArguments(string[] args)
 		{
 			_arguments = new List<CommandLineArgument>();
@@ -37,6 +45,11 @@ namespace Console
 						// Parameters inside an option
 						currentParameters.Add(args[i]);
 					}
+				}
+				// Last option?
+				if (!String.IsNullOrEmpty(currentOption))
+				{
+					_arguments.Add(new CommandLineArgument(currentOption, currentParameters));
 				}
 			}
 		}
