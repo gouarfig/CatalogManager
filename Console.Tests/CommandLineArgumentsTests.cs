@@ -19,5 +19,14 @@ namespace Console.Tests
 			var arguments = new CommandLineArguments(args);
 			Assert.IsNotNull(arguments);
 		}
-    }
+
+		[Test]
+		public void Empty()
+		{
+			string[] args = new string[0];
+
+			var arguments = new CommandLineArguments(args);
+			Assert.IsNotNull(arguments);
+		}
+	}
 }
