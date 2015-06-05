@@ -112,11 +112,10 @@ namespace DataObjects.Tests.AdoNet
 		{
 			var db = new Mock<IDb>();
 			var configuration = new ConfigurationDao(db.Object);
-			var item = new Configuration()
-			{
-				Name = null,
-				Value = "The Value"
-			};
+			var item = new Configuration(
+				name: null,
+				value: "The Value"
+				);
 			configuration.Put(item);
 		}
 
@@ -126,11 +125,10 @@ namespace DataObjects.Tests.AdoNet
 		{
 			var db = new Mock<IDb>();
 			var configuration = new ConfigurationDao(db.Object);
-			var item = new Configuration()
-			{
-				Name = "",
-				Value = "The Value"
-			};
+			var item = new Configuration(
+				name: "",
+				value: "The Value"
+				);
 			configuration.Put(item);
 		}
 
@@ -140,11 +138,10 @@ namespace DataObjects.Tests.AdoNet
 		{
 			var db = new Mock<IDb>();
 			var configuration = new ConfigurationDao(db.Object);
-			var item = new Configuration()
-			{
-				Name = new string('a', 500),
-				Value = "The Value"
-			};
+			var item = new Configuration(
+				name: new string('a', 500),
+				value: "The Value"
+				);
 			configuration.Put(item);
 		}
 
@@ -153,11 +150,10 @@ namespace DataObjects.Tests.AdoNet
 		{
 			var db = new Mock<IDb>();
 			var configuration = new ConfigurationDao(db.Object);
-			var item = new Configuration()
-			{
-				Name = "My Name",
-				Value = "The Value"
-			};
+			var item = new Configuration(
+				name: "My Name",
+				value: "The Value"
+				);
 			configuration.Put(item);
 			db.Verify(
 				a => a.UpdateOrInsert(

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ActionService
 {
-	public interface IService
+	public interface ICatalogService
 	{
-		bool BuildDatabase();
+		bool InitializeDatabase();
+		int GetDatabaseVersion();
 	}
 }

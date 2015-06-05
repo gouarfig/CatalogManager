@@ -56,10 +56,10 @@ namespace DataObjects.AdoNet
 
 		private static readonly Func<IDataReader, Configuration> Make = reader =>
 			new Configuration
-			{
-				Name = reader["Name"].AsString(),
-				Value = reader["Value"].AsString(),
-			};
+			(
+				name: reader["Name"].AsString(),
+				value: reader["Value"].AsString()
+			);
 
 		private object[] Take(Configuration configuration)
 		{

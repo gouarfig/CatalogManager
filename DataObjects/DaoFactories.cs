@@ -24,6 +24,8 @@ namespace DataObjects
 					return new AdoNet.DaoFactory();
 				case "entityframework":
 					return new EntityFramework.DaoFactory();
+				case "inmemory":
+					return new InMemory.DaoFactory();
 
 				default:
 					return new AdoNet.DaoFactory();

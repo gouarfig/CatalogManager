@@ -14,14 +14,21 @@ namespace Console
 		{
 			_arguments = new List<Argument>
 			{
-				new Argument("Shows the build and version information", "v", "version",
-					new ArgumentDelegate(new Environment().Version))
+				new Argument("Shows the build and version information", "v", "Version",
+					new ArgumentDelegate(new Environment().AssemblyVersion)),
+
+				new Argument("Builds a blank database (does not delete an already existing one)", "b", "BuildDatabase",
+					new ArgumentDelegate(new Environment().BuildDatabase)),
+
+				new Argument("Displays available drives list", "d", "Drives",
+					new ArgumentDelegate(new Environment().DisplayDriveList)),
 			};
 		}
 
 		public Argument GetArgument(string arg)
 		{
-			var argument = _arguments.Find(a => a.ShortArgument == arg || a.LongArgument == arg);
+			arg = arg.ToLower();
+			var argument = _arguments.Find(a => a.ShortArgument.ToLower() == arg || a.LongArgument.ToLower() == arg);
 			return argument;
 		}
 
