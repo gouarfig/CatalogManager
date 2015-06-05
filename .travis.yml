@@ -1,5 +1,6 @@
 language: csharp
 mono:
+  - alpha
   - beta
   - latest
   - 3.12.0
