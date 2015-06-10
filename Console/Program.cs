@@ -11,8 +11,9 @@ namespace Console
 	{
 		static void Main(string[] args)
 		{
+			var commandLineArguments = new CommandLineArguments(args);
 			var commandLineOptions = new CommandLineOptions();
-			commandLineOptions.RunFromArguments(args);
+			commandLineOptions.RunFromArguments(commandLineArguments);
 		}
 	}
 }

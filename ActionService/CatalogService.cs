@@ -65,5 +65,34 @@ namespace ActionService
 		    }
 		    return version;
 	    }
+
+	    public string DisplayBytesToHuman(string size)
+	    {
+		    long output;
+		    if (long.TryParse(size, out output))
+		    {
+			    return DisplayBytesToHuman(output);
+		    }
+		    else
+		    {
+			    return "(Not A Number)";
+		    }
+	    }
+
+	    public string DisplayBytesToHuman(long size)
+	    {
+		    var thousandPrefixes = new string[]
+		    {
+			    "", "k", "M", "G", "T", "P", "E", "Z", "Y"
+		    };
+		    int thousand = 0;
+		    decimal number = size;
+			while ((number > 1024) && (thousand < thousandPrefixes.Length))
+			{
+				thousand++;
+				number = number/1024;
+			}
+		    return String.Format("{0:N} {1}", number, thousandPrefixes[thousand]);
+	    }
     }
 }

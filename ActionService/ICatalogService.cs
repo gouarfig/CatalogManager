@@ -10,5 +10,7 @@ namespace ActionService
 	{
 		bool InitializeDatabase();
 		int GetDatabaseVersion();
+		string DisplayBytesToHuman(string size);
+		string DisplayBytesToHuman(long size);
 	}
 }

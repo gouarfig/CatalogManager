@@ -24,7 +24,7 @@ namespace Console
 					new ArgumentDelegate(new Environment().DisplayDriveList)),
 
 				new CommandLineOption("Displays information about selected drive", "d", "Drive", "<drive>",
-					new ArgumentDelegate(new Environment().DisplayDriveList)),
+					new ArgumentDelegate(new Environment().DisplayDriveInfo)),
 			};
 		}
 
@@ -37,7 +37,7 @@ namespace Console
 
 		public void DisplayHelp()
 		{
-			System.Console.WriteLine("Catalog Master [options]");
+			System.Console.WriteLine("CatalogMasterCLI.exe [options]");
 			System.Console.WriteLine("Options:");
 			foreach (var argument in _commandLineOptions)
 			{
@@ -74,6 +74,32 @@ namespace Console
 			else
 			{
 				DisplayHelp();
+			}
+			return result;
+		}
+
+		public bool RunFromArguments(CommandLineArguments commandLineArguments)
+		{
+			var results = true;
+
+			foreach (var commandLineArgument in commandLineArguments.Arguments)
+			{
+				var result = RunFromArgument(commandLineArgument);
+				if (result == false)
+				{
+					results = false;
+				}
+			}
+			return results;
+		}
+
+		public bool RunFromArgument(CommandLineArgument commandLineArgument)
+		{
+			bool result = false;
+			var commandLineOption = GetArgument(commandLineArgument.Option);
+			if (commandLineOption != null)
+			{
+				result = commandLineOption.RunArgumentDelegate(commandLineArgument.Parameters);
 			}
 			return result;
 		}

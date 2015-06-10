@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -92,8 +93,35 @@ namespace Console
 			return displayed;
 		}
 
-		public void DisplayDriveInfo(string drive)
+		public bool DisplayDriveInfo(IEnumerable<string> drives)
 		{
+			bool displayed = true;
+			if (drives != null)
+			{
+				foreach (var drive in drives)
+				{
+					var driveInfo = new DriveInfo(drive);
+					System.Console.WriteLine("Details about drive '{0}':", driveInfo.RootDirectory);
+					System.Console.WriteLine(" Name = '{0}'", driveInfo.Name);
+					if (driveInfo.DriveType != DriveType.NoRootDirectory)
+					{
+						System.Console.WriteLine(" Type = {0}", driveInfo.DriveType);
+					}
+					if (driveInfo.IsReady)
+					{
+						System.Console.WriteLine(" Label = '{0}'", driveInfo.VolumeLabel);
+						System.Console.WriteLine(" Format = {0}", driveInfo.DriveFormat);
+						System.Console.WriteLine(" Size = {0}B", _service.DisplayBytesToHuman(driveInfo.TotalSize));
+						System.Console.WriteLine(" Total Free space = {0}B", _service.DisplayBytesToHuman(driveInfo.TotalFreeSpace));
+						System.Console.WriteLine(" Available Free space = {0}B", _service.DisplayBytesToHuman(driveInfo.AvailableFreeSpace));
+					}
+					else
+					{
+						System.Console.WriteLine(" Drive is not available (empty or not mounted)");
+					}
+				}
+			}
+			return displayed;
 		}
 	}
 }
