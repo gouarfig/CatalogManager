@@ -45,39 +45,6 @@ namespace Console
 			}
 		}
 
-		public bool RunFromArguments(string[] args)
-		{
-			var result = false;
-			if (args.Length > 0)
-			{
-				for (int i = 0; i < args.Length; i++)
-				{
-					if (args[i].StartsWith("/") || args[i].StartsWith("-"))
-					{
-						var arg = args[i].Substring(1);
-						var argument = GetArgument(arg);
-						if (argument != null)
-						{
-							result = argument.RunArgumentDelegate(null);
-						}
-						else
-						{
-							DisplayHelp();
-						}
-					}
-					else
-					{
-						DisplayHelp();
-					}
-				}
-			}
-			else
-			{
-				DisplayHelp();
-			}
-			return result;
-		}
-
 		public bool RunFromArguments(CommandLineArguments commandLineArguments)
 		{
 			var results = true;
