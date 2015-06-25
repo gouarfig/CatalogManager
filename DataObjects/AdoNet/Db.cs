@@ -57,8 +57,17 @@ namespace DataObjects.AdoNet
 			}
 		}
 
-		// return a scalar object
+		public async Task<IEnumerable<T>> ReadAsync<T>(IEnumerable<IDataReader> readers, Func<IDataReader, Task<T>> make)
+		{
+			return await Task.WhenAll(from reader in readers select make(reader));
+		}
 
+		/// <summary>
+		/// Returns a scalar object
+		/// </summary>
+		/// <param name="sql"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
 		public object Scalar(string sql, params object[] parms)
 		{
 
@@ -72,8 +81,21 @@ namespace DataObjects.AdoNet
 
 		}
 
+		public async Task<object> ScalarAsync(string sql, params object[] parms)
+		{
+
+			using (var connection = await CreateConnectionAsync())
+			{
+				using (var command = CreateCommand(sql, connection, parms))
+				{
+					return await command.ExecuteScalarAsync();
+				}
+			}
+
+		}
+
 		/// <summary>
-		/// Insert a new record
+		/// Inserts a new record
 		/// </summary>
 		/// <param name="sql"></param>
 		/// <param name="parms"></param>
@@ -92,14 +114,32 @@ namespace DataObjects.AdoNet
 		}
 
 		/// <summary>
-		/// Update an existing record
+		/// Inserts a new record asynchronously
+		/// </summary>
+		/// <param name="sql"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
+		public async Task<int> InsertAsync(string sql, params object[] parms)
+		{
+
+			using (var connection = await CreateConnectionAsync())
+			{
+				using (var command = CreateCommand(sql, connection, parms))
+				{
+					return await command.ExecuteNonQueryAsync();
+				}
+			}
+
+		}
+
+		/// <summary>
+		/// Updates an existing record
 		/// </summary>
 		/// <param name="sql"></param>
 		/// <param name="parms"></param>
 		/// <returns></returns>
 		public int Update(string sql, params object[] parms)
 		{
-
 			using (var connection = CreateConnection())
 			{
 				using (var command = CreateCommand(sql, connection, parms))
@@ -107,7 +147,23 @@ namespace DataObjects.AdoNet
 					return command.ExecuteNonQuery();
 				}
 			}
+		}
 
+		/// <summary>
+		/// Updates an existing record asynchronously
+		/// </summary>
+		/// <param name="sql"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
+		public async Task<int> UpdateAsync(string sql, params object[] parms)
+		{
+			using (var connection = await CreateConnectionAsync())
+			{
+				using (var command = CreateCommand(sql, connection, parms))
+				{
+					return await command.ExecuteNonQueryAsync();
+				}
+			}
 		}
 
 		public int UpdateOrInsert(string sqlUpdate, string sqlInsert, params object[] parms)
@@ -134,8 +190,32 @@ namespace DataObjects.AdoNet
 			return updatedOrInserted;
 		}
 
+		public async Task<int> UpdateOrInsertAsync(string sqlUpdate, string sqlInsert, params object[] parms)
+		{
+			int updatedOrInserted = 0;
+			using (var connection = await CreateConnectionAsync())
+			{
+				using (var updateCommand = CreateCommand(sqlUpdate, connection, parms))
+				{
+					var updated = await updateCommand.ExecuteNonQueryAsync();
+					if (updated > 0)
+					{
+						updatedOrInserted = updated;
+					}
+					else
+					{
+						using (var insertCommand = CreateCommand(sqlInsert, connection, parms))
+						{
+							updatedOrInserted = await insertCommand.ExecuteNonQueryAsync();
+						}
+					}
+				}
+			}
+			return updatedOrInserted;
+		}
+
 		/// <summary>
-		/// Delete a record
+		/// Deletes a record
 		/// </summary>
 		/// <param name="sql"></param>
 		/// <param name="parms"></param>
@@ -144,6 +224,18 @@ namespace DataObjects.AdoNet
 		{
 			return Update(sql, parms);
 		}
+
+		/// <summary>
+		/// Deletes a record asynchronously
+		/// </summary>
+		/// <param name="sql"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
+		public async Task<int> DeleteAsync(string sql, params object[] parms)
+		{
+			return await UpdateAsync(sql, parms);
+		}
+
 
 		public int CreateStructure(string sql)
 		{
@@ -156,24 +248,50 @@ namespace DataObjects.AdoNet
 			}
 		}
 
-		// creates a connection object
+		public async Task<int> CreateStructureAsync(string sql)
+		{
+			using (var connection = await CreateConnectionAsync())
+			{
+				using (var command = CreateCommand(sql, connection, null))
+				{
+					return await command.ExecuteNonQueryAsync();
+				}
+			}
+		}
 
+		/// <summary>
+		/// Creates a connection object
+		/// </summary>
+		/// <returns></returns>
 		DbConnection CreateConnection()
 		{
-			// ** Factory pattern in action
-
 			var connection = factory.CreateConnection();
 			connection.ConnectionString = _connectionString;
 			connection.Open();
 			return connection;
 		}
 
-		// creates a command object
+		/// <summary>
+		/// Creates an async connection object
+		/// </summary>
+		/// <returns></returns>
+		async Task<DbConnection> CreateConnectionAsync()
+		{
+			var connection = factory.CreateConnection();
+			connection.ConnectionString = _connectionString;
+			await connection.OpenAsync();
+			return connection;
+		}
 
+		/// <summary>
+		/// Creates a command object
+		/// </summary>
+		/// <param name="sql"></param>
+		/// <param name="conn"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
 		DbCommand CreateCommand(string sql, DbConnection conn, params object[] parms)
 		{
-			// ** Factory pattern in action
-
 			var command = factory.CreateCommand();
 			command.Connection = conn;
 			command.CommandText = sql;
@@ -181,12 +299,13 @@ namespace DataObjects.AdoNet
 			return command;
 		}
 
-		// creates an adapter object
-
+		/// <summary>
+		/// Creates an adapter object
+		/// </summary>
+		/// <param name="command"></param>
+		/// <returns></returns>
 		DbDataAdapter CreateAdapter(DbCommand command)
 		{
-			// ** Factory pattern in action
-
 			var adapter = factory.CreateDataAdapter();
 			adapter.SelectCommand = command;
 			return adapter;

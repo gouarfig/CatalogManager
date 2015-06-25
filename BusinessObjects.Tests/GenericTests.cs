@@ -15,9 +15,15 @@ namespace BusinessObjects.Tests
 	{
 		private const int LoopCount = 60;
 
-		private void DoSomethingInALoop(int i)
+		private void LoopSomething(int i)
 		{
 			Thread.Sleep(1000);
+		}
+
+		private async Task LoopSomethingAsync(int i)
+		{
+			Debug.Print("LoopSomethingAsync({0})", i);
+			await Task.Delay(1000);
 		}
 
 		[Test]
@@ -26,7 +32,7 @@ namespace BusinessObjects.Tests
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			for (int i = 0; i < LoopCount; i++)
 			{
-				DoSomethingInALoop(i);
+				LoopSomething(i);
 			}
 			stopwatch.Stop();
 			Debug.Print("NormalLoop: Time elapsed = {0}ms", stopwatch.ElapsedMilliseconds);
@@ -34,14 +40,15 @@ namespace BusinessObjects.Tests
 		}
 
 		[Test]
-		public void ImprovedLoop()
+		public void ParallelLoop()
 		{
 			Stopwatch stopwatch = Stopwatch.StartNew();
-			Parallel.For(0, LoopCount, i => DoSomethingInALoop(i));
+			Parallel.For(0, LoopCount, i => LoopSomething(i));
 			stopwatch.Stop();
 			Debug.Print("ImprovedLoop: Time elapsed = {0}ms", stopwatch.ElapsedMilliseconds);
 			Assert.That(stopwatch.ElapsedMilliseconds, Is.LessThan(60000));
 		}
+
 
 		//TODO do some ReadAsync and await
     }

@@ -56,6 +56,19 @@ namespace DataObjects.Tests
 		}
 
 		[Test]
+		public async void CreateSqLiteDbAsync()
+		{
+			SQLiteConnection.CreateFile(_testsDbFileName);
+			using (var sqlite = new SQLiteConnection(String.Format("Data Source={0};Version=3", _testsDbFileName)))
+			{
+				Assert.IsNotNull(sqlite);
+				await sqlite.OpenAsync();
+				sqlite.Close();
+			}
+			DeleteDatabase();
+		}
+
+		[Test]
 		public void SelectFromNoTable()
 		{
 			var db = new Db();
@@ -76,6 +89,24 @@ namespace DataObjects.Tests
 				"@Value", "Some value"
 			};
 			var inserted = db.Insert(sql, record);
+			Assert.AreEqual(1, inserted);
+
+			DeleteDatabase();
+		}
+
+		[Test]
+		public async void InsertNewRecordAsync()
+		{
+			var db = CreateTestDatabase();
+			CreateTestTable(db);
+
+			var sql = _insertSql;
+			var record = new object[] 
+			{
+				"@Id", 10, 
+				"@Value", "Some value"
+			};
+			var inserted = await db.InsertAsync(sql, record);
 			Assert.AreEqual(1, inserted);
 
 			DeleteDatabase();
