@@ -40,7 +40,7 @@ namespace BusinessObjects.Tests
 			Parallel.For(0, LoopCount, i => DoSomethingInALoop(i));
 			stopwatch.Stop();
 			Debug.Print("ImprovedLoop: Time elapsed = {0}ms", stopwatch.ElapsedMilliseconds);
-			Assert.That(stopwatch.ElapsedMilliseconds, Is.InRange(10000, 40000));
+			Assert.That(stopwatch.ElapsedMilliseconds, Is.LessThan(60000));
 		}
 
 		//TODO do some ReadAsync and await
