@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="BusinessObject.cs" />
     <Compile Include="BusinessRules\BusinessRule.cs" />
+    <Compile Include="BusinessRules\BusinessRuleAttribute.cs" />
+    <Compile Include="BusinessRules\RequiredAttribute.cs" />
     <Compile Include="BusinessRules\ValidateId.cs" />
     <Compile Include="BusinessRules\ValidateLength.cs" />
     <Compile Include="BusinessRules\ValidateRequired.cs" />

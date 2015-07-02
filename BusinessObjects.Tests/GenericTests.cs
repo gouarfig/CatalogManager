@@ -49,7 +49,6 @@ namespace BusinessObjects.Tests
 			Assert.That(stopwatch.ElapsedMilliseconds, Is.LessThan(60000));
 		}
 
-
 		//TODO do some ReadAsync and await
     }
 }

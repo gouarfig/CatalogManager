@@ -29,9 +29,5 @@ namespace BusinessObjects
 		public List<Category> Categories { get; set; }
 		public List<FileCatalog> Files { get; set; }
 
-		public Volume()
-		{
-			AddRule(new ValidateId("Id"));
-		}
 	}
 }

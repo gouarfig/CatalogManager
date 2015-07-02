@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessObjects;
 
 namespace DataObjects.InMemory
 {
 	public class CategoryDao : ICategoryDao
 	{
+		private List<Category> _data;
+
+		public CategoryDao()
+		{
+			_data = new List<Category>();
+		}
+
 		public int CreateStructure()
 		{
 			return 0;
@@ -15,27 +23,29 @@ namespace DataObjects.InMemory
 
 		public List<BusinessObjects.Category> GetCategories()
 		{
-			throw new NotImplementedException();
+			return _data;
 		}
 
 		public BusinessObjects.Category GetCategoryById(int id)
 		{
-			throw new NotImplementedException();
+			return _data.Find(c => c.Id == id);
 		}
 
 		public BusinessObjects.Category GetCategoryByGuid(Guid guid)
 		{
-			throw new NotImplementedException();
+			return _data.Find(c => c.Guid == guid);
 		}
 
 		public BusinessObjects.Category GetCategoryByName(string name)
 		{
-			throw new NotImplementedException();
+			return _data.Find(c => c.Name == name);
 		}
 
-		public bool InsertCategory(BusinessObjects.Category categoy)
+		public bool InsertCategory(BusinessObjects.Category category)
 		{
-			throw new NotImplementedException();
+			if (_data.Contains(category)) throw new ArgumentException("This category already exists");
+			_data.Add(category);
+			return true;
 		}
 
 		public bool UpdateCategory(BusinessObjects.Category category)

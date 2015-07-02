@@ -13,6 +13,10 @@ namespace BusinessObjects
 
 		public Configuration(string name, string value)
 		{
+			if (String.IsNullOrEmpty(name))
+			{
+				throw new ArgumentException("Name can't be null or empty", "name");
+			}
 			Name = name;
 			Value = value;
 		}
