@@ -7,10 +7,12 @@ using BusinessObjects.BusinessRules;
 
 namespace BusinessObjects
 {
-	public class Volume : BusinessObject
+	public sealed class Volume : BusinessObject
 	{
+		[Identifier]
 		public int Id { get; set; }
 		public Guid Guid { get; set; }
+		[Required]
 		public string Name { get; set; }
 		public VolumeType Type { get; set; }
 

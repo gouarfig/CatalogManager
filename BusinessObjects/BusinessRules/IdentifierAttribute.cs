@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.BusinessRules
 {
-	public class RequiredAttribute : BusinessRuleAttribute
+	public class IdentifierAttribute : BusinessRuleAttribute
 	{
-		private const string Message = "{0} {1} is required.";
+		private const string Message = "{0} {1} is a required identifier.";
 
 		public override bool Validate(Object entity, PropertyInfo property)
 		{
 			bool valid = true;
 			try
 			{
-				valid = (property.GetValue(entity) != null);
+				var value = property.GetValue(entity);
+				valid = (value != null);
+				var integerValue = 0L;
+				valid = long.TryParse(value.ToString(), out integerValue);
+				valid = (integerValue > 0);
 			}
 			catch (Exception exception)
 			{

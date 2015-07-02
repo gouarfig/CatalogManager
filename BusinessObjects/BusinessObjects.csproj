@@ -42,12 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObject.cs" />
-    <Compile Include="BusinessRules\BusinessRule.cs" />
+    <Compile Include="BusinessRules\BusinessObjectValidationException.cs" />
     <Compile Include="BusinessRules\BusinessRuleAttribute.cs" />
+    <Compile Include="BusinessRules\IdentifierAttribute.cs" />
+    <Compile Include="BusinessRules\LengthAttribute.cs" />
     <Compile Include="BusinessRules\RequiredAttribute.cs" />
-    <Compile Include="BusinessRules\ValidateId.cs" />
-    <Compile Include="BusinessRules\ValidateLength.cs" />
-    <Compile Include="BusinessRules\ValidateRequired.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="FileCatalog.cs" />

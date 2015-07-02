@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
-	public class FileProperty
+	public sealed class FileProperty : BusinessObject
 	{
 		public FileCatalog File { get; set; }
 		public string Name { get; set; }
