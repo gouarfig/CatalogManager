@@ -36,13 +36,20 @@ namespace DataObjects.InMemory
 			{
 				throw new ArgumentNullException("configuration");
 			}
-			var previous = Get(configuration.Name);
-			if (previous != null)
+			if (configuration.Validate())
 			{
-				_data.Remove(previous);
+				var previous = Get(configuration.Name);
+				if (previous != null)
+				{
+					_data.Remove(previous);
+				}
+				_data.Add(configuration);
+				return 1;
 			}
-			_data.Add(configuration);
-			return 1;
+			else
+			{
+				return 0;
+			}
 		}
 	}
 }

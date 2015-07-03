@@ -44,8 +44,15 @@ namespace DataObjects.InMemory
 		public bool InsertCategory(BusinessObjects.Category category)
 		{
 			if (_data.Contains(category)) throw new ArgumentException("This category already exists");
-			_data.Add(category);
-			return true;
+			if (category.Validate())
+			{
+				_data.Add(category);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public bool UpdateCategory(BusinessObjects.Category category)
