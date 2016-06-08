@@ -72,7 +72,7 @@ namespace DataObjects.Tests
 		public void SelectFromNoTable()
 		{
 			var db = new Db();
-			Assert.Throws<System.Data.SQLite.SQLiteException>(delegate { db.Scalar("SELECT * FROM NotATable", null); });
+			Assert.Throws<System.Data.SQLite.SQLiteException>(() => db.Scalar("SELECT * FROM NotATable", null));
 			DeleteDatabase();
 		}
 
