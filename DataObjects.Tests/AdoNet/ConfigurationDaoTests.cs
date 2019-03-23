@@ -55,7 +55,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void GetNullParameter()
 		{
 			var db = new Mock<IDb>();
@@ -64,7 +64,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void GetEmptyParameter()
 		{
 			var db = new Mock<IDb>();
@@ -73,7 +73,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void GetInvalidParameter()
 		{
 			var db = new Mock<IDb>();
@@ -98,7 +98,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentNullException))]
+		// [ExpectedException(typeof(System.ArgumentNullException))]
 		public void PutNullParameter()
 		{
 			var db = new Mock<IDb>();
@@ -107,7 +107,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void PutNullNameParameter()
 		{
 			var db = new Mock<IDb>();
@@ -120,7 +120,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void PutEmptyNameParameter()
 		{
 			var db = new Mock<IDb>();
@@ -133,7 +133,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void PutInvalidNameParameter()
 		{
 			var db = new Mock<IDb>();

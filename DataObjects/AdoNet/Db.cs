@@ -14,7 +14,7 @@ namespace DataObjects.AdoNet
 	/// </summary>
 	public sealed class Db : IDb
 	{
-		static readonly DbProviderFactory factory = DbProviderFactories.GetFactory("System.Data.SQLite.EF6");
+		static readonly DbProviderFactory factory /* = DbProviderFactories.GetFactory("System.Data.SQLite.EF6") */;
 		private string _connectionName = "CatalogMaster.SQLite";
 		private string _connectionString;
 

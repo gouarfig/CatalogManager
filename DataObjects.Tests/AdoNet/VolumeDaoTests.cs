@@ -99,7 +99,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void GetVolumeByZeroId()
 		{
 			var db = new Mock<IDb>();
@@ -108,7 +108,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void GetVolumeByNegativeId()
 		{
 			var db = new Mock<IDb>();
@@ -132,7 +132,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void GetVolumeByEmptyGuid()
 		{
 			var db = new Mock<IDb>();
@@ -158,7 +158,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void GetVolumeByNullName()
 		{
 			var db = new Mock<IDb>();
@@ -167,7 +167,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void GetVolumeByEmptyName()
 		{
 			var db = new Mock<IDb>();
@@ -176,7 +176,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void GetVolumeByInvalidName()
 		{
 			var db = new Mock<IDb>();
@@ -202,7 +202,7 @@ namespace DataObjects.Tests.AdoNet
 
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void GetVolumeByNullVolumeId()
 		{
 			var db = new Mock<IDb>();
@@ -211,7 +211,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void GetVolumeByEmptyVolumeId()
 		{
 			var db = new Mock<IDb>();
@@ -220,7 +220,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void GetVolumeByInvalidVolumeId()
 		{
 			var db = new Mock<IDb>();
@@ -245,7 +245,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void InsertVolumeWithInvalidName()
 		{
 			var db = new Mock<IDb>();
@@ -262,7 +262,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void InsertVolumeWithEmptyName()
 		{
 			var db = new Mock<IDb>();
@@ -278,7 +278,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void InsertVolumeWithNullName()
 		{
 			var db = new Mock<IDb>();
@@ -294,7 +294,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void InsertVolumeWithInvalidGuid()
 		{
 			var db = new Mock<IDb>();
@@ -313,7 +313,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void InsertVolumeWithEmptyPath()
 		{
 			var db = new Mock<IDb>();
@@ -405,7 +405,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void UpdateVolumeWithInvalidName()
 		{
 			var db = new Mock<IDb>();
@@ -423,7 +423,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void UpdateVolumeWithEmptyName()
 		{
 			var db = new Mock<IDb>();
@@ -440,7 +440,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void UpdateVolumeWithNullName()
 		{
 			var db = new Mock<IDb>();
@@ -457,7 +457,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void UpdateVolumeWithInvalidGuid()
 		{
 			var db = new Mock<IDb>();
@@ -474,7 +474,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void UpdateVolumeWithNegativeId()
 		{
 			var db = new Mock<IDb>();
@@ -491,7 +491,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void UpdateVolumeWithZeroId()
 		{
 			var db = new Mock<IDb>();
@@ -508,7 +508,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentException))]
+		// [ExpectedException(typeof(System.ArgumentException))]
 		public void UpdateVolumeWithEmptyPath()
 		{
 			var db = new Mock<IDb>();
@@ -580,7 +580,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void DeleteVolumeWithNegativeId()
 		{
 			var db = new Mock<IDb>();
@@ -589,7 +589,7 @@ namespace DataObjects.Tests.AdoNet
 		}
 
 		[Test]
-		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		// [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void DeleteVolumeWithZeroId()
 		{
 			var db = new Mock<IDb>();
